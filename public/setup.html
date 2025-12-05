@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head><title>WhatsMarket – List for FREE</title></head>
+<body style="font-family:sans-serif;background:#075e54;color:white;padding:20px;text-align:center;">
+  <h1>WhatsMarket</h1>
+  <div style="background:white;color:#075e54;padding:30px;border-radius:20px;max-width:500px;margin:auto;">
+    <h2>List Your Business – 100% FREE</h2>
+    <p>Or pay R299/month to appear first with "RECOMMENDED" badge</p>
+    <input placeholder="Shop Name" id="name"><br><br>
+    <input placeholder="Your WhatsApp (2782...)" id="phone"><br><br>
+    <input placeholder="Town" id="town"><br><br>
+    <input placeholder="What do you sell?" id="product"><br><br>
+    <input placeholder="Price" id="price"><br><br>
+    <button onclick="join()" style="background:#25d366;color:white;padding:15px;border:none;border-radius:12px;font-size:18px;">Join Free</button>
+    <button onclick="upgrade()" style="background:#128c7e;color:white;margin-top:10px;padding:15px;border:none;border-radius:12px;">Pay R299 → Be Featured</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    async function join() {
+      const res = await fetch('/api/seller/create', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        town: document.getElementById('town').value,
+        product: document.getElementById('product').value,
+        price: document.getElementById('price').value
+      })});
+      document.getElementById('result').innerHTML = 'You are LIVE! Customers can find you now.';
+    }
+    function upgrade() { alert('Pay R299 to appear first — contact admin'); }
+  </script>
+</body>
+</html>

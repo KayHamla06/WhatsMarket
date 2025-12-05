@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Shop – WhatsMarket Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>My Shop <span id="badge"></span></h1>
+    </div>
+    <div class="card">
+      <button onclick="location.href='/login.html'">Logout</button>
+      <button onclick="upgrade()" style="background:#ffd700;color:black;">Upgrade to Premium R299</button>
+      <h2>Add Item (<span id="count">0</span>/20)</h2>
+      <input placeholder="Item Name" id="name">
+      <input placeholder="Price" id="price">
+      <input type="file" id="photo" multiple accept="image/*">
+      <button onclick="addItem()">Add Item</button>
+
+      <div class="grid" id="items"></div>
+    </div>
+  </div>
+
+  <script>
+    async function load() {
+      const res = await fetch('/api/seller/dashboard');
+      const data = await res.json();
+      document.getElementById('badge').innerHTML = data.premium ? '<span class="badge">PREMIUM</span>' : '';
+      document.getElementById('count').innerText = data.items.length;
+      document.getElementById('items').innerHTML = data.items.map(i => `
+        <div class="item">
+          <img src="${i.photos[0]}">
+          <strong>${i.name}</strong><br>R${i.price}
+        </div>
+      `).join('');
+    }
+    load();
+  </script>
+</body>
+</html>

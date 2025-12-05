@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WhatsMarket Pro – Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>WhatsMarket Pro</h1>
+      <p>Sell on WhatsApp • Reach Thousands</p>
+    </div>
+    <div class="card">
+      <h2>Login or Sign Up</h2>
+      <input type="text" placeholder="Your WhatsApp Number (2782...)" id="phone">
+      <input type="password" placeholder="Password" id="pass">
+      <button onclick="login()">Login</button>
+      <button onclick="signup()" style="background:#667eea;">Create Free Account</button>
+
+      <div style="margin-top:30px;padding:20px;background:#f0f8ff;border-radius:12px;">
+        <h3>Free Plan</h3>
+        <p>✓ 20 items<br>✓ 1 photo per item<br>✓ Appear in search</p>
+        <h3 class="premium">Premium – R299/month</h3>
+        <p>✓ 50 items<br>✓ 5 photos per item<br>✓ <span class="badge">PREMIUM</span> badge<br>✓ Appear first in results<br>✓ Top recommendation</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function login() {
+      const res = await fetch('/api/auth/login', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:document.getElementById('phone').value,pass:document.getElementById('pass').value})});
+      const d = await res.json();
+      if (d.success) window.location.href = '/dashboard.html';
+    }
+    async function signup() {
+      const res = await fetch('/api/auth/signup', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:document.getElementById('phone').value,pass:document.getElementById('pass').value})});
+      alert('Account created! Login now.');
+    }
+  </script>
+</body>
+</html>
